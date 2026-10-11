@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Our Love Story — An Interactive Proposal Experience</title>
+  <meta name="description" content="An interactive romantic love story, digital proposal book, and memory journey created with all my heart.">
+  <meta property="og:title" content="Our Love Story — A Special Journey For You ❤️">
+  <meta property="og:description" content="Open this special digital journey filled with memories, love, and one very important question.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bad+Script&family=Caveat:wght@400;600;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Marck+Script&family=Montserrat:wght@300;400;500;600&family=Nunito:wght@300;400;500;600&family=Pacifico&family=Parisienne&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Ambient Romantic Backdrop -->
+  <div class="romantic-backdrop" id="romanticBackdrop">
+    <div class="romantic-backdrop-overlay" id="backdropOverlay"></div>
+  </div>
+
+  <!-- Floating / Falling Heart Particle Canvas/Layer -->
+  <div class="heart-particle-container" id="heartParticleContainer" aria-hidden="true"></div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Top Utility Header -->
+  <header class="experience-header">
+    <a href="index.html" class="header-brand" id="headerBrandTitle">
+      <span>Our Love Story</span> <span>❤️</span>
+    </a>
+    <div class="header-actions">
+      <a href="admin.html" class="header-link-btn" title="Open Customizer & Settings">
+        <span>⚙️</span> <span>Customize</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Proposal Experience Stage -->
+  <main class="app-container" id="appContainer">
+    <!-- Dynamic Progress Indicator -->
+    <div class="journey-progress-wrap" id="journeyProgressWrap" style="display: none;">
+      <div class="journey-progress-bar-bg">
+        <div class="journey-progress-bar-fill" id="journeyProgressFill"></div>
+      </div>
+      <div class="journey-progress-text">
+        <span id="journeyStepLabel">Chapter 1 of 5</span>
+        <span id="journeyPercentLabel">20%</span>
+      </div>
+    </div>
+
+    <!-- Active Screen Render Container -->
+    <div id="screenStage" class="romance-card-stage" role="region" aria-live="polite">
+      <!-- Screen content rendered dynamically by script.js -->
+    </div>
+
+    <!-- Footer Note -->
+    <footer class="app-footer" id="appFooter">
+      <p id="appFooterText">Made with all my heart, forever and always.</p>
+    </footer>
+  </main>
+
+  <!-- Application Engine Scripts -->
+  <script src="/config.js"></script>
+  <script src="/script.js"></script>
+</body>
+</html>

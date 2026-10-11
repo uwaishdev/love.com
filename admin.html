@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Proposal Customizer & Admin Control Center</title>
+  <meta name="description" content="Admin Dashboard to customize questions, love letter, proposal text, themes, and Google Sheets integration.">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bad+Script&family=Caveat:wght@400;600;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Marck+Script&family=Montserrat:wght@300;400;500;600&family=Nunito:wght@300;400;500;600&family=Pacifico&family=Parisienne&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+
+    <!-- Mobile Admin Header Toggle -->
+    <header style="display: none;" class="mobile-admin-bar">
+      <button id="mobileNavToggle" class="mobile-admin-toggle" type="button" aria-label="Toggle navigation">
+        ☰
+      </button>
+      <div style="font-weight: 600; color: #E7C58D;">Admin Control Center</div>
+      <a href="index.html" class="header-link-btn">Preview ↗</a>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-sidebar-header">
+        <h1 class="admin-brand-title">Love Story</h1>
+        <div class="admin-brand-subtitle">Proposal Control Center</div>
+      </div>
+
+      <nav class="admin-nav" id="adminNav" role="navigation">
+        <button type="button" class="admin-nav-item active" data-tab="tab-overview">
+          <span class="admin-nav-icon">📊</span> <span>Overview</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-welcome">
+          <span class="admin-nav-icon">✨</span> <span>Welcome Screen</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-name">
+          <span class="admin-nav-icon">👤</span> <span>Name & Greeting</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-questions">
+          <span class="admin-nav-icon">❓</span> <span>Question Manager</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-letter">
+          <span class="admin-nav-icon">💌</span> <span>Love Letter</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-proposal">
+          <span class="admin-nav-icon">💍</span> <span>Proposal Screen</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-celebration">
+          <span class="admin-nav-icon">🎉</span> <span>Celebration</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-theme">
+          <span class="admin-nav-icon">🎨</span> <span>Theme & Font Design</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-images">
+          <span class="admin-nav-icon">📸</span> <span>Photos & Images</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-social">
+          <span class="admin-nav-icon">💬</span> <span>Social Links</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-sheets">
+          <span class="admin-nav-icon">📊</span> <span>Google Sheets</span>
+        </button>
+        <button type="button" class="admin-nav-item" data-tab="tab-backup">
+          <span class="admin-nav-icon">💾</span> <span>Backup & Reset</span>
+        </button>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="index.html" class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.9rem; text-decoration: none;">
+          <span>Open Live Proposal ↗</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+
+      <!-- Top Bar -->
+      <div class="admin-top-bar">
+        <div>
+          <button id="mobileNavToggleBtn" class="mobile-admin-toggle" style="margin-bottom: 8px;">☰ Menu</button>
+          <h2 class="admin-view-title" id="viewTitle">Dashboard Overview</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Personalize every single moment of your digital proposal experience.</p>
+        </div>
+        <div class="admin-top-actions">
+          <button id="btnOpenLivePreview" class="btn-secondary" type="button">
+            <span>👁️ Test Interactive Preview</span>
+          </button>
+          <button id="btnQuickSave" class="btn-primary" type="button">
+            <span>💾 Save Changes</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Security / Static Note Banner -->
+      <div class="admin-card" style="border-left: 4px solid #E7C58D; padding: 18px 24px; margin-bottom: 24px; background: rgba(231, 197, 141, 0.08);">
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <span style="font-size: 1.4rem;">💡</span>
+          <div>
+            <div style="font-weight: 600; color: #E7C58D; font-size: 0.95rem;">Private Configuration Note</div>
+            <p style="font-size: 0.82rem; color: #DCC8F2; line-height: 1.5; margin-top: 4px;">
+              All changes are securely stored in your local browser storage (<code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px;">localStorage</code>) and synced to the proposal website. No private passwords or credentials are exposed in client code. If you switch devices, use <strong>Backup & Reset</strong> to export and transfer your settings JSON.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 1: OVERVIEW -->
+      <section id="tab-overview" class="admin-tab-pane">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number" id="statQuestionsCount">5</span>
+            <span class="stat-label">Total Questions Configured</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="statQuestionsEnabled" style="color: #10B981;">5</span>
+            <span class="stat-label">Active / Enabled Questions</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="statThemePreset" style="font-size: 1.35rem; text-transform: capitalize;">Burgundy</span>
+            <span class="stat-label">Active Theme Preset</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number" id="statSheetsStatus" style="font-size: 1.25rem;">Not Connected</span>
+            <span class="stat-label">Google Sheets Integration</span>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Quick Experience Overview</h3>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 20px;">
+            Here is the current flow of your romantic journey. Click any section on the left sidebar to edit its text, images, or options.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;" id="flowOverviewList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: WELCOME SCREEN -->
+      <section id="tab-welcome" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Welcome Screen Settings</h3>
+            <label class="switch">
+              <input type="checkbox" id="welcomeEnabled">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="welcomeBadge">Badge Text</label>
+            <input type="text" id="welcomeBadge" class="admin-input" placeholder="A Little Surprise For You ✨">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="welcomeHeading">Main Heading</label>
+            <input type="text" id="welcomeHeading" class="admin-input" placeholder="Someone has a little something special for you...">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="welcomeSubheading">Subheading</label>
+            <textarea id="welcomeSubheading" class="admin-textarea" rows="2" placeholder="A tiny journey filled with love, memories, and one very important question."></textarea>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="welcomeIntro">Introductory Note (Italic)</label>
+            <input type="text" id="welcomeIntro" class="admin-input" placeholder="Take a deep breath, smile, and let me take you on a walk down our memory lane.">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="welcomeBtnText">Button Label</label>
+            <input type="text" id="welcomeBtnText" class="admin-input" placeholder="Open My Little Love Story ✨">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="welcomeImageUrl">Optional Decorative Image URL</label>
+            <input type="url" id="welcomeImageUrl" class="admin-input" placeholder="https://example.com/sweet-photo.jpg">
+            <div class="admin-form-hint">Tip: Paste a photo URL or upload in the "Photos & Images" tab.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: NAME & GREETING -->
+      <section id="tab-name" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Personalized Name Entry</h3>
+            <label class="switch">
+              <input type="checkbox" id="nameEnabled">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-form-group">
+            <div class="admin-switch-wrap">
+              <div>
+                <div style="font-weight: 500; color: #FFF;">Require Name Before Continuing</div>
+                <div class="admin-form-hint">If enabled, she cannot skip without typing a name.</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="nameRequired">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="nameHeading">Screen Title</label>
+            <input type="text" id="nameHeading" class="admin-input" placeholder="Before we start... what should I call you?">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="nameSubheading">Screen Subtitle</label>
+            <input type="text" id="nameSubheading" class="admin-input" placeholder="Your nickname, your sweet name, or whatever makes you smile most.">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="namePlaceholder">Input Placeholder</label>
+            <input type="text" id="namePlaceholder" class="admin-input" placeholder="Your beautiful name...">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="nameDefaultGreeting">Default Fallback Name (If skipped)</label>
+            <input type="text" id="nameDefaultGreeting" class="admin-input" placeholder="My Love">
+            <div class="admin-form-hint">Used for "{{name}}" placeholders throughout love letters and questions.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: QUESTIONNAIRE MANAGER -->
+      <section id="tab-questions" class="admin-tab-pane" style="display: none;">
+        <div class="admin-top-actions" style="margin-bottom: 20px; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 600; color: #FFF;">Configured Questions</h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Reorder, edit, duplicate, or add questions to your romantic quiz.</p>
+          </div>
+          <button id="btnAddNewQuestion" class="btn-primary" type="button">
+            <span>+ Add New Question</span>
+          </button>
+        </div>
+
+        <div id="questionsListContainer">
+          <!-- Populated dynamically with question cards -->
+        </div>
+      </section>
+
+      <!-- TAB 5: LOVE LETTER -->
+      <section id="tab-letter" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Love Letter Configuration</h3>
+            <label class="switch">
+              <input type="checkbox" id="letterEnabled">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="letterPosition">Position in Experience</label>
+            <select id="letterPosition" class="admin-select">
+              <option value="before_proposal">Before the Final Proposal (Classic & Emotional)</option>
+              <option value="after_proposal">After the Final Proposal (As a Post-Acceptance Surprise)</option>
+            </select>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="letterTitle">Salutation / Title</label>
+            <input type="text" id="letterTitle" class="admin-input" placeholder="My Dearest {{name}}">
+            <div class="admin-form-hint">Use {{name}} to automatically insert her entered name.</div>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="letterDate">Date Note (Top Right)</label>
+            <input type="text" id="letterDate" class="admin-input" placeholder="For Today, Tomorrow & Always">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="letterOpening">Opening Sentence</label>
+            <input type="text" id="letterOpening" class="admin-input" placeholder="If you are reading this, I want you to know how deeply you have changed my life.">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="letterBody">Letter Body (Multiple Paragraphs)</label>
+            <textarea id="letterBody" class="admin-textarea" rows="8" placeholder="Write your heartfelt letter here..."></textarea>
+            <div class="admin-form-hint">Line breaks and empty lines between paragraphs are preserved.</div>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="letterClosing">Closing Words</label>
+            <input type="text" id="letterClosing" class="admin-input" placeholder="With all my love and devotion,">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="letterSignature">Handwritten Signature</label>
+            <input type="text" id="letterSignature" class="admin-input" placeholder="Yours Forever ❤️">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="letterImageUrl">Optional Letter Photo URL</label>
+            <input type="url" id="letterImageUrl" class="admin-input" placeholder="https://example.com/memory-photo.jpg">
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: PROPOSAL SCREEN -->
+      <section id="tab-proposal" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Final Proposal Question</h3>
+            <label class="switch">
+              <input type="checkbox" id="proposalEnabled">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="proposalHeading">Heading</label>
+            <input type="text" id="proposalHeading" class="admin-input" placeholder="I have one last question for you, {{name}}...">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="proposalQuestion">The Big Question</label>
+            <input type="text" id="proposalQuestion" class="admin-input" placeholder="Will you be my forever?">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="proposalSubtext">Subtext / Vow</label>
+            <input type="text" id="proposalSubtext" class="admin-input" placeholder="Through every adventure, every high, every low, and every tomorrow.">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="proposalYesText">"Yes" Button Label</label>
+              <input type="text" id="proposalYesText" class="admin-input" placeholder="Yes, Absolutely! 💍❤️">
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="proposalNoText">"No" Button Label (Evasive)</label>
+              <input type="text" id="proposalNoText" class="admin-input" placeholder="No 🙈">
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="proposalNoMessages">Playful Messages When She Tries To Tap "No" (One per line)</label>
+            <textarea id="proposalNoMessages" class="admin-textarea" rows="4" placeholder="Are you sure? Try clicking again! 😉
+Oops! That button is shy! 🏃‍♂️
+Nice try, but your heart says YES! 💖
+Almost caught it... but not quite! 🙈"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 7: CELEBRATION -->
+      <section id="tab-celebration" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Celebration & Confetti Screen</h3>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="celebHeading">Celebration Heading</label>
+            <input type="text" id="celebHeading" class="admin-input" placeholder="You Just Made My World More Beautiful! 💍✨❤️">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="celebSubheading">Subheading</label>
+            <input type="text" id="celebSubheading" class="admin-input" placeholder="SHE SAID YES! Best day of my life!">
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="celebMessage">Personal Heartfelt Message</label>
+            <textarea id="celebMessage" class="admin-textarea" rows="4" placeholder="Some moments are too sacred for words. This is the happiest moment of my life, and I promise to love and cherish you every single day."></textarea>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="celebEffect">Celebration Visual Effect</label>
+            <select id="celebEffect" class="admin-select">
+              <option value="confetti_and_hearts">Confetti & Hearts Burst</option>
+              <option value="hearts">Floating Heart Rain</option>
+              <option value="none">Gentle Glow Only</option>
+            </select>
+          </div>
+
+          <div class="admin-form-group">
+            <div class="admin-switch-wrap">
+              <div>
+                <div style="font-weight: 500; color: #FFF;">Show "Read Love Letter Again" Button</div>
+                <div class="admin-form-hint">Allows her to re-read your letter from the celebration screen.</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="celebShowLetterBtn">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 8: THEME & ATMOSPHERE -->
+      <section id="tab-theme" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Theme Presets & Palette</h3>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="themePresetSelect">Quick Color Preset</label>
+            <select id="themePresetSelect" class="admin-select">
+              <option value="burgundy_rose">Burgundy & Romantic Rose (Default Cinematic)</option>
+              <option value="midnight_starlight">Midnight Starlight & Gold (Deep Navy & Champagne)</option>
+              <option value="vintage_champagne">Warm Ivory & Vintage Rose (Warm & Classic)</option>
+              <option value="lavender_dream">Lavender Twilight & Soft Blush (Pastel Dream)</option>
+            </select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px;">
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="themeBgPrimary">Primary Background</label>
+              <input type="color" id="themeBgPrimary" class="admin-input" style="height: 44px; padding: 4px;">
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="themeBgSecondary">Secondary Gradient</label>
+              <input type="color" id="themeBgSecondary" class="admin-input" style="height: 44px; padding: 4px;">
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="themeAccent">Accent Color</label>
+              <input type="color" id="themeAccent" class="admin-input" style="height: 44px; padding: 4px;">
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="themeHeartStyle">Heart Background Animation</label>
+            <select id="themeHeartStyle" class="admin-select">
+              <option value="falling">Gently Falling Hearts</option>
+              <option value="floating">Floating Upward Hearts</option>
+              <option value="none">No Particles (Static Glow)</option>
+            </select>
+          </div>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="themeBgImage">Custom Background Image URL</label>
+            <input type="url" id="themeBgImage" class="admin-input" placeholder="https://example.com/starry-sky.jpg">
+          </div>
+        </div>
+
+        <!-- FONT DESIGN & TYPOGRAPHY CARD -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Font Design & Typography (फ़ॉन्ट डिज़ाइन)</h3>
+            <span style="font-size: 0.8rem; color: #E7C58D; background: rgba(231, 197, 141, 0.15); padding: 4px 10px; border-radius: 999px;">
+              Live Preview Below
+            </span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">
+            Choose your favorite romantic font style for headings, proposal questions, love letters, and body text.
+          </p>
+
+          <!-- Quick Typography Pairing Preset -->
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="fontPresetSelect">Romantic Font Pairing Presets (त्वरित कॉम्बो)</label>
+            <select id="fontPresetSelect" class="admin-select">
+              <option value="custom">-- Custom Choice (कस्टम पसंद) --</option>
+              <option value="classic_romance" selected>Classic Romance: Great Vibes + Poppins + Cormorant Garamond</option>
+              <option value="sweet_calligraphy">Sweet & Playful: Dancing Script + Quicksand + Caveat</option>
+              <option value="french_elegance">French Elegance: Parisienne + Montserrat + Marck Script</option>
+              <option value="luxury_editorial">Luxury Editorial: Playfair Display + Poppins + Cormorant Garamond</option>
+              <option value="fairytale_brush">Fairytale Script: Alex Brush + Nunito + Bad Script</option>
+              <option value="regal_timeless">Regal Royalty: Cinzel + Inter + Cormorant Garamond</option>
+            </select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+            <!-- Heading Font -->
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="fontHeadingSelect">Heading & Proposal Font (शीर्षक फ़ॉन्ट)</label>
+              <select id="fontHeadingSelect" class="admin-select">
+                <option value="'Great Vibes', cursive">Great Vibes (Romantic Cursive)</option>
+                <option value="'Dancing Script', cursive">Dancing Script (Playful Script)</option>
+                <option value="'Parisienne', cursive">Parisienne (French Calligraphy)</option>
+                <option value="'Alex Brush', cursive">Alex Brush (Delicate Flowing Brush)</option>
+                <option value="'Playfair Display', serif">Playfair Display (Luxury Editorial Serif)</option>
+                <option value="'Cinzel', serif">Cinzel (Classical Roman Serif)</option>
+                <option value="'Pacifico', cursive">Pacifico (Casual Handwritten)</option>
+              </select>
+              <div class="admin-form-hint">Used for main titles, proposal question & signatures.</div>
+            </div>
+
+            <!-- Body Font -->
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="fontBodySelect">Body & Story Text Font (मुख्य टेक्स्ट फ़ॉन्ट)</label>
+              <select id="fontBodySelect" class="admin-select">
+                <option value="'Poppins', sans-serif">Poppins (Modern Rounded Sans)</option>
+                <option value="'Montserrat', sans-serif">Montserrat (Chic & Stylish Sans)</option>
+                <option value="'Quicksand', sans-serif">Quicksand (Soft Curved Romantic)</option>
+                <option value="'Nunito', sans-serif">Nunito (Gentle & Friendly Sans)</option>
+                <option value="'Inter', sans-serif">Inter (Clean Modern Minimalist)</option>
+              </select>
+              <div class="admin-form-hint">Used for questions, descriptions, inputs & buttons.</div>
+            </div>
+
+            <!-- Letter Font -->
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="fontLetterSelect">Love Letter Font (प्रेम पत्र फ़ॉन्ट)</label>
+              <select id="fontLetterSelect" class="admin-select">
+                <option value="'Cormorant Garamond', serif">Cormorant Garamond (Vintage Bookpress)</option>
+                <option value="'Caveat', cursive">Caveat (Authentic Handwritten Ink)</option>
+                <option value="'Marck Script', cursive">Marck Script (Romantic Fountain Pen)</option>
+                <option value="'Bad Script', cursive">Bad Script (Nostalgic Diary Note)</option>
+              </select>
+              <div class="admin-form-hint">Used for the romantic love letter body.</div>
+            </div>
+          </div>
+
+          <!-- Real-Time Font Preview Box -->
+          <div style="margin-top: 24px; padding: 22px; background: rgba(0, 0, 0, 0.4); border: 1.5px solid var(--accent-color); border-radius: 16px;">
+            <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); margin-bottom: 12px; font-weight: 600;">
+              Live Font Design Preview (फ़ॉन्ट प्रीव्यू)
+            </div>
+            
+            <div id="fontPreviewHeading" style="font-size: 2.2rem; color: #FFF; line-height: 1.2; margin-bottom: 8px;">
+              Will you be my forever? 💍
+            </div>
+            <div id="fontPreviewBody" style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 14px;">
+              Every little chapter of our love story feels like a dream come true. Let's make today unforgettable.
+            </div>
+            <div style="padding-top: 10px; border-top: 1px solid rgba(232, 93, 136, 0.25);">
+              <div id="fontPreviewLetter" style="font-size: 1.15rem; color: #E7C58D; font-style: italic; line-height: 1.7; margin-bottom: 6px;">
+                "Thank you for loving me, for believing in us, and for making my world brighter than I ever dreamed possible."
+              </div>
+              <div id="fontPreviewSignature" style="font-size: 1.8rem; color: var(--accent-color); text-align: right;">
+                Yours Forever ❤️
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 9: PHOTOS & IMAGES -->
+      <section id="tab-images" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Couple & Memory Photos</h3>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+            Upload your special pictures or paste image URLs. Uploaded images are automatically compressed to fit safely in your browser storage.
+          </p>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label">Couple Photo (Used on Welcome or Proposal)</label>
+            <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 8px;">
+              <input type="file" id="uploadCouplePhoto" accept="image/*" class="admin-input" style="padding: 8px;">
+            </div>
+            <input type="url" id="couplePhotoUrl" class="admin-input" placeholder="Or paste image URL...">
+            <div id="couplePhotoPreview" style="margin-top: 10px; max-width: 140px; border-radius: 12px; overflow: hidden; display: none;">
+              <img src="" alt="Couple preview" style="width: 100%; height: auto;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 10: SOCIAL MEDIA LINKS -->
+      <section id="tab-social" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">WhatsApp & Instagram Sharing</h3>
+          </div>
+
+          <div style="margin-bottom: 28px;">
+            <div class="admin-switch-wrap">
+              <span style="font-weight: 600; color: #25D366;">WhatsApp Sharing Button</span>
+              <label class="switch">
+                <input type="checkbox" id="whatsappEnabled">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div style="display: grid; grid-template-columns: 120px 1fr; gap: 12px;">
+              <div>
+                <label class="admin-form-label" for="waCountryCode">Country Code</label>
+                <input type="text" id="waCountryCode" class="admin-input" placeholder="1">
+              </div>
+              <div>
+                <label class="admin-form-label" for="waPhone">Phone Number</label>
+                <input type="text" id="waPhone" class="admin-input" placeholder="Your phone number...">
+              </div>
+            </div>
+            <div class="admin-form-group" style="margin-top: 12px;">
+              <label class="admin-form-label" for="waMessage">Prefilled WhatsApp Message</label>
+              <input type="text" id="waMessage" class="admin-input" placeholder="I said YES! 💍❤️ Our love story is forever!">
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid rgba(232, 93, 136, 0.2); padding-top: 20px;">
+            <div class="admin-switch-wrap">
+              <span style="font-weight: 600; color: #E1306C;">Instagram Button</span>
+              <label class="switch">
+                <input type="checkbox" id="igEnabled">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label" for="igHandle">Instagram Username or Profile Link</label>
+              <input type="text" id="igHandle" class="admin-input" placeholder="@yourhandle or https://instagram.com/yourhandle">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 11: GOOGLE SHEETS INTEGRATION -->
+      <section id="tab-sheets" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Google Sheets Backend Integration</h3>
+            <span id="sheetsStatusBadge" style="padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; background: rgba(255, 255, 255, 0.1);">
+              Status: Unconfigured
+            </span>
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">
+            Connect your Google Sheet so all answers, timestamps, and the final <strong>"YES!"</strong> response are automatically recorded into your spreadsheet!
+          </p>
+
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="sheetsEndpointUrl">Google Apps Script Web App URL</label>
+            <input type="url" id="sheetsEndpointUrl" class="admin-input" placeholder="https://script.google.com/macros/s/.../exec">
+            <div class="admin-form-hint">Obtain this URL after deploying <code style="color: #E7C58D;">google-apps-script.js</code> as a Web App in Google Sheets.</div>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 16px;">
+            <button id="btnTestSheetsConnection" class="btn-primary" type="button">
+              <span>⚡ Test Connection Now</span>
+            </button>
+            <button id="btnOpenSetupGuide" class="btn-secondary" type="button">
+              <span>📖 Open Step-by-Step Setup Guide</span>
+            </button>
+          </div>
+
+          <div id="sheetsTestResult" style="margin-top: 16px; padding: 12px 16px; border-radius: 10px; display: none; font-size: 0.9rem;"></div>
+        </div>
+      </section>
+
+      <!-- TAB 12: BACKUP & RESET -->
+      <section id="tab-backup" class="admin-tab-pane" style="display: none;">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Backup, Transfer & Reset</h3>
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+            Export your entire proposal customization as a JSON backup file to keep it safe or transfer it to another browser.
+          </p>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px;">
+            <button id="btnExportConfig" class="btn-primary" type="button">
+              <span>📥 Export Settings JSON</span>
+            </button>
+            
+            <label class="btn-secondary" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+              <span>📤 Import Settings JSON</span>
+              <input type="file" id="importConfigFile" accept=".json" style="display: none;">
+            </label>
+          </div>
+
+          <div style="border-top: 1px solid rgba(239, 68, 68, 0.3); padding-top: 20px;">
+            <h4 style="color: #ef4444; font-size: 1.05rem; margin-bottom: 8px;">Danger Zone: Reset Configuration</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+              Revert all questions, love letter text, proposal prompts, and themes back to factory defaults.
+            </p>
+            <button id="btnResetToDefaults" class="btn-secondary admin-icon-btn danger" type="button">
+              <span>⚠️ Reset All Settings to Defaults</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Floating Save Status Bar -->
+    <div class="admin-save-bar">
+      <div class="save-status-text">
+        <span class="save-status-indicator" id="saveIndicator"></span>
+        <span id="saveStatusMsg">All changes saved to browser storage</span>
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <button id="btnBarSave" class="btn-primary" type="button">
+          <span>💾 Save All</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUESTION EDIT / ADD MODAL -->
+  <div class="modal-backdrop" id="questionModalBackdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="questionModalTitle">Edit Question</h3>
+        <button type="button" class="modal-close-btn" id="btnModalClose">&times;</button>
+      </div>
+
+      <form id="questionForm">
+        <input type="hidden" id="modalQuestionId">
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="modalQuestionType">Question Type</label>
+          <select id="modalQuestionType" class="admin-select">
+            <option value="text">Text Input Question</option>
+            <option value="option">Option Buttons Question (Multiple Choice)</option>
+          </select>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="modalQuestionTitle">Question Title</label>
+          <input type="text" id="modalQuestionTitle" class="admin-input" required placeholder="What was the first thing you noticed about me?">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="modalQuestionDesc">Description / Story Prompt</label>
+          <input type="text" id="modalQuestionDesc" class="admin-input" placeholder="Be honest! I still remember our first glance...">
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="modalQuestionBadge">Badge Tag</label>
+          <input type="text" id="modalQuestionBadge" class="admin-input" placeholder="First Impressions">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="admin-switch-wrap">
+            <span style="font-weight: 500; font-size: 0.9rem;">Enabled</span>
+            <label class="switch">
+              <input type="checkbox" id="modalQuestionEnabled" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="admin-switch-wrap">
+            <span style="font-weight: 500; font-size: 0.9rem;">Required</span>
+            <label class="switch">
+              <input type="checkbox" id="modalQuestionRequired" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Conditional Text Fields -->
+        <div id="modalTextFields">
+          <div class="admin-switch-wrap">
+            <span style="font-weight: 500; font-size: 0.9rem;">Multiline (Paragraph)</span>
+            <label class="switch">
+              <input type="checkbox" id="modalQuestionMultiline">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label" for="modalQuestionPlaceholder">Placeholder Text</label>
+            <input type="text" id="modalQuestionPlaceholder" class="admin-input" placeholder="Type your answer...">
+          </div>
+        </div>
+
+        <!-- Conditional Option Fields -->
+        <div id="modalOptionFields" style="display: none;">
+          <div class="admin-switch-wrap">
+            <span style="font-weight: 500; font-size: 0.9rem;">Auto-Advance on Click</span>
+            <label class="switch">
+              <input type="checkbox" id="modalQuestionAutoAdvance" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <label class="admin-form-label" style="margin-top: 12px;">Options List</label>
+          <div id="modalOptionsContainer" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+            <!-- Populated with option rows -->
+          </div>
+          <button type="button" id="btnAddOptionRow" class="btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">
+            <span>+ Add Option</span>
+          </button>
+        </div>
+
+        <div class="modal-footer" style="margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px;">
+          <button type="button" class="btn-secondary" id="btnModalCancel">Cancel</button>
+          <button type="submit" class="btn-primary">Save Question</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE LIVE PREVIEW MODAL -->
+  <div class="modal-backdrop" id="previewModalBackdrop">
+    <div class="modal-content" style="max-width: 480px; padding: 16px; background: #12060F;">
+      <div class="modal-header">
+        <h3 class="modal-title">Live Interactive Preview</h3>
+        <button type="button" class="modal-close-btn" id="btnPreviewClose">&times;</button>
+      </div>
+      <div style="display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 6px;">
+        <button type="button" class="admin-icon-btn preview-tab-btn" data-preview-screen="welcome">Welcome</button>
+        <button type="button" class="admin-icon-btn preview-tab-btn" data-preview-screen="name">Name</button>
+        <button type="button" class="admin-icon-btn preview-tab-btn" data-preview-screen="question">Question</button>
+        <button type="button" class="admin-icon-btn preview-tab-btn" data-preview-screen="letter">Letter</button>
+        <button type="button" class="admin-icon-btn preview-tab-btn" data-preview-screen="proposal">Proposal</button>
+        <button type="button" class="admin-icon-btn preview-tab-btn" data-preview-screen="celebration">Celebration</button>
+      </div>
+      <!-- Phone Mockup Container -->
+      <div id="previewFrameContainer" style="border: 2px solid rgba(232, 93, 136, 0.4); border-radius: 24px; min-height: 480px; max-height: 560px; overflow-y: auto; padding: 20px 14px; background: var(--bg-primary);">
+        <!-- Live preview content rendered by admin.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="/config.js"></script>
+  <script src="/admin.js"></script>
+</body>
+</html>
